@@ -55,30 +55,18 @@ cc_library(
 )
 
 cc_library(
-    name = "c_api",
-    hdrs = ["c_api.h"],
+    name = "Mudra",
+    srcs = ["TensorflowInference.cc", "TensorflowInference.h", "Logging.cpp", "Logging.h", "CommonTypes.h", "Constants.h"],
     copts = tflite_copts(),
+    linkstatic = 1,
     deps = [
-        ":c_api_types",
-        ":c_api_without_op_resolver",
-        "//tensorflow/lite:create_op_resolver_with_builtin_ops",
-    ],
-    alwayslink = 1,  # Why?? TODO(b/161243354): eliminate this.
+       "//tensorflow/lite:framework",
+       "//tensorflow/lite/kernels:builtin_ops",
+      ],
 )
 
 cc_library(
-    name = "c_api_for_testing",
-    testonly = True,
-    srcs = ["c_api_for_testing.cc"],
-    hdrs = ["c_api_for_testing.h"],
-    deps = [
-        ":c_api",
-        ":c_api_internal",
-    ],
-)
-
-cc_library(
-    name = "c_api_without_op_resolver",
+    name = "c_api",
     srcs = ["c_api.cc"],
     hdrs = ["c_api.h"],
     copts = tflite_copts(),
@@ -86,7 +74,7 @@ cc_library(
         ":c_api_internal",
         ":c_api_types",
         "//tensorflow/lite:builtin_ops",
-        "//tensorflow/lite:create_op_resolver_header",
+        "//tensorflow/lite:create_op_resolver_with_builtin_ops",
         "//tensorflow/lite:framework",
         "//tensorflow/lite:version",
         "//tensorflow/lite/delegates:interpreter_utils",
@@ -217,7 +205,6 @@ cc_test(
     size = "small",
     srcs = ["common_test.cc"],
     deps = [
-        ":c_api_types",
         ":common",
         "@com_google_googletest//:gtest_main",
     ],
