@@ -56,11 +56,14 @@ cc_library(
 
 cc_library(
     name = "Mudra",
+    hdrs = [
+        "//tensorflow/lite/delegates/coreml:coreml_delegate.h"
+    ],
     srcs = ["TensorflowInference.cc", "TensorflowInference.h", "Logging.cpp", "Logging.h", "CommonTypes.h", "Constants.h"],
     copts = tflite_copts(),
     linkstatic = 1,
     deps = [
-       "//tensorflow/lite:framework",
+       "//tensorflow/lite:framework",    
        "//tensorflow/lite/kernels:builtin_ops",
       ],
 )

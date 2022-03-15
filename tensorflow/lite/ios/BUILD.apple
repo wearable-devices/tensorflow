@@ -163,7 +163,7 @@ tflite_ios_framework(
     bundle_name = "TensorFlowLiteCCoreML",
     minimum_os_version = TFL_MINIMUM_OS_VERSION,
     deps = [
-        "//tensorflow/lite/delegates/coreml:coreml_delegate",
+       "//tensorflow/lite/delegates/coreml:coreml_delegate",
     ],
 )
 
@@ -197,6 +197,7 @@ cc_library(
         "swift_module=TensorFlowLiteC",
     ],
     deps = [
+        "//tensorflow/lite/delegates/coreml:coreml_delegate",
        "//tensorflow/lite/c:Mudra",
     ],
 )
